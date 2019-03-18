@@ -1,0 +1,3 @@
+﻿  test.c
+e:\资料\code\clcode\clcode\clc07\clc07\test.c(153): warning C4715: “IsPrime”: 不是所有的控件路径都返回值
+  CLC07.vcxproj -> E:\资料\code\CLCode\CLCode\CLC07\Debug\CLC07.exe
