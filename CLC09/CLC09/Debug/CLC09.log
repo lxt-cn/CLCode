@@ -1,0 +1,5 @@
+﻿  MIneGame.c
+  test.c
+  正在生成代码...
+e:\资料\code\clcode\clcode\clc09\clc09\minegame.c(78): warning C4715: “GetMineCount”: 不是所有的控件路径都返回值
+  CLC09.vcxproj -> E:\资料\code\CLCode\CLCode\CLC09\Debug\CLC09.exe
