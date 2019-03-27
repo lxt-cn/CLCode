@@ -1,0 +1,3 @@
+﻿  test.c
+e:\资料\code\clcode\clcode\clc19\clc19\test.c(94): warning C4090: “=”: 不同的“const”限定符
+  CLC19.vcxproj -> E:\资料\code\CLCode\CLCode\CLC19\Debug\CLC19.exe
