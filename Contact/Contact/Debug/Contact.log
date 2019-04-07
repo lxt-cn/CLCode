@@ -1,0 +1,4 @@
+﻿  Contact.c
+e:\资料\code\clcode\clcode\contact\contact\contact.c(33): warning C4477: “printf”: 格式字符串“%-5d”需要类型“int”的参数，但可变参数 2 拥有了类型“char *”
+e:\资料\code\clcode\clcode\contact\contact\contact.c(79): warning C4018: “<”: 有符号/无符号不匹配
+  Contact.vcxproj -> E:\资料\code\CLCode\CLCode\Contact\Debug\Contact.exe
