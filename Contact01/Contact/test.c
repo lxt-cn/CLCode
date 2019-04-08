@@ -29,15 +29,19 @@ int main()
 			DelContact(&my_con);
 			break;
 		case SEARCH:
+			SearchContact(&my_con);
 			break;
 		case MODIFY:
+			ModifyContact(&my_con);
 			break;
 		case SHOW:
-			Show(&my_con);
+			ShowContact(&my_con);
 			break;
 		case SORT:
+			SortContact(&my_con);
 			break;
 		case EMPTY:
+			EmptyContact(&my_con);
 			break;
 		case EXIT:
 			printf("ÍË³ö\n");
