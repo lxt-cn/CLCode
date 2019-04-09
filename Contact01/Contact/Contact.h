@@ -17,17 +17,11 @@ enum Option1
 	EMPTY
 };
 
-enum Option2
-{
-	NAME = 1,
-	ID
-};
-
 #define MAX_NAME 20
 #define MAX_SEX 5
 #define MAX_ADDR 30
 #define MAX 1000
-#define MAX1 30
+
 
 typedef struct PeoInfo
 {
@@ -35,7 +29,7 @@ typedef struct PeoInfo
 	char sex[MAX_SEX];
 	char addr[MAX_ADDR];
 	short age;
-	int id;
+	int tel;
 }PeoInfo;
 
 typedef struct Contact

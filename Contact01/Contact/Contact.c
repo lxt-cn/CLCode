@@ -22,8 +22,8 @@ void AddContact(pContact pc)
 	scanf_s("%s", pc->data[pc->sz].sex,MAX_SEX);
 	printf("请输入地址：");
 	scanf_s("%s", pc->data[pc->sz].addr,MAX_ADDR);
-	printf("请输入学号：");
-	scanf_s("%d", &(pc->data[pc->sz].id));
+	printf("请输入电话号码：");
+	scanf_s("%d", &(pc->data[pc->sz].tel));
 	pc->sz++;
 
 	printf("添加成功\n");
@@ -32,7 +32,7 @@ void AddContact(pContact pc)
 void ShowContact(pContact pc)
 {
 	unsigned int i = 0;
-	printf("%-10s\t%-5s\t%-5s\t%-10s\t%-5s\n", "name", "age", "sex", "addr", "id");
+	printf("%-10s\t%-5s\t%-5s\t%-10s\t%-5s\n", "name", "age", "sex", "addr", "tel");
 	for (i = 0; i < pc->sz; i++)
 	{
 		printf("%-10s\t%-5d\t%-5s\t%-10s\t%-5d\n",
@@ -40,16 +40,8 @@ void ShowContact(pContact pc)
 			pc->data[i].age,
 			pc->data[i].sex,
 			pc->data[i].addr,
-			pc->data[i].id);
+			pc->data[i].tel);
 	}
-}
-
-static void menu1()
-{
-	printf("----------------------------\n");
-	printf("---   1、Name   2、Id    ---\n");
-	printf("---        0、Exit       ---\n");
-	printf("----------------------------\n");
 }
 
 static void DelNameEntry(pContact* ppc)
@@ -66,34 +58,7 @@ static void DelNameEntry(pContact* ppc)
 			strcpy_s((*ppc)->data[i].name, MAX_NAME, (*ppc)->data[i + 1].name);
 			strcpy_s((*ppc)->data[i].sex, MAX_SEX, (*ppc)->data[i + 1].sex);
 			(*ppc)->data[i].age = (*ppc)->data[i + 1].age;
-			(*ppc)->data[i].id = (*ppc)->data[i + 1].id;
-		}
-	}
-	if (i == (*ppc)->sz + 1)
-	{
-		printf("要删除的联系人不存在\n");
-	}
-	else
-	{
-		(*ppc)->sz--;
-	}
-}
-
-static void DelIdEntry(pContact* ppc)
-{
-	int id1 = 0;
-	unsigned int i = 0;
-	scanf_s("%d", &id1);
-
-	for (i = 0; i < (*ppc)->sz; i++)
-	{
-		if ((*ppc)->data[i].id == id1)
-		{
-			strcpy_s((*ppc)->data[i].addr, MAX_ADDR, (*ppc)->data[i + 1].addr);
-			strcpy_s((*ppc)->data[i].name, MAX_NAME, (*ppc)->data[i + 1].name);
-			strcpy_s((*ppc)->data[i].sex, MAX_SEX, (*ppc)->data[i + 1].sex);
-			(*ppc)->data[i].age = (*ppc)->data[i + 1].age;
-			(*ppc)->data[i].id = (*ppc)->data[i + 1].id;
+			(*ppc)->data[i].tel = (*ppc)->data[i + 1].tel;
 		}
 	}
 	if (i == (*ppc)->sz + 1)
@@ -116,32 +81,8 @@ void DelContact(pContact pc)
 		return;
 	}
 
-	do
-	{
-		menu1();
-		printf("请选择要删除的人的信息（姓名、学号任选其一）>\n");
-		scanf_s("%d", &input);
+	DelNameEntry(&pc);
 
-		switch (input)
-		{
-		case NAME:
-			DelNameEntry(&pc);
-			break;
-		case ID:
-			DelIdEntry(&pc);
-			break;
-		case EXIT:
-			printf("取消删除\n");
-			break;
-		default:
-			printf("输入错误，请重新输入\n");
-			break;
-		}
-		if (input <= 5 && input >= 1)
-		{
-			input = 0;
-		}
-	} while (input);
 }
 
 static unsigned int SearchNameEntry(pContact* ppc)
@@ -166,28 +107,6 @@ static unsigned int SearchNameEntry(pContact* ppc)
 	return MAX;
 }
 
-static unsigned int SearchIdEntry(pContact* ppc)
-{
-	int id1 = 0;
-	unsigned int i = 0;
-	scanf_s("%d", &id1);
-
-	if ((*ppc)->sz == 0)
-	{
-		printf("通讯录无可查找的联系人\n");
-		return MAX;
-	}
-
-	for (i = 0; i < (*ppc)->sz; i++)
-	{
-		if ((*ppc)->data[i].id == id1)
-		{
-			return i;
-		}
-	}
-	return MAX;
-}
-
 static void PrintCon(pContact pc, unsigned int pos)
 {
 	if (pos < 0 || pos >= pc->sz)
@@ -201,8 +120,9 @@ static void PrintCon(pContact pc, unsigned int pos)
 		pc->data[pos].age,
 		pc->data[pos].sex,
 		pc->data[pos].addr,
-		pc->data[pos].id);
+		pc->data[pos].tel);
 }
+
 void SearchContact(pContact pc)
 {
 	int input = 0;
@@ -213,36 +133,15 @@ void SearchContact(pContact pc)
 		return;
 	}
 
-	do 
+	pos = SearchNameEntry(&pc);
+	if (pos != MAX)
 	{
-		menu1();
-		printf("请选择要查找的联系人的信息（姓名、学号任选其一）>\n");
-		scanf_s("%d", &input);
-
-		switch (input)
-		{
-		case NAME:
-			pos = SearchNameEntry(&pc);
-			break;
-		case ID:
-			pos = SearchIdEntry(&pc);
-			break;
-		case EXIT:
-			printf("取消查找\n");
-			break;
-		default:
-			printf("输入错误，请重新输入\n");
-			break;
-		}
-		if (pos != MAX)
-		{
-			PrintCon(pc, pos);
-		}
-		if (input == 1 || input == 2)
-		{
-			input = 0;
-		}
-	} while (input);
+		PrintCon(pc, pos);
+	}
+	else
+	{
+		printf("未找到\n");
+	}
 }
 
 static void ModifyContent(pContact* ppc, unsigned int pos)
@@ -255,8 +154,8 @@ static void ModifyContent(pContact* ppc, unsigned int pos)
 	scanf_s("%s", (*ppc)->data[pos].sex, MAX_SEX);
 	printf("请输入修改后的地址：");
 	scanf_s("%s", (*ppc)->data[pos].addr, MAX_ADDR);
-	printf("请输入修改后的学号：");
-	scanf_s("%d", &((*ppc)->data[pos].id));
+	printf("请输入修改后的电话号码：");
+	scanf_s("%d", &((*ppc)->data[pos].tel));
 }
 
 void ModifyContact(pContact pc)
@@ -269,37 +168,12 @@ void ModifyContact(pContact pc)
 		return;
 	}
 
-	do
+	pos = SearchNameEntry(&pc);
+	if (pos != MAX)
 	{
-		menu1();
-		printf("请选择要修改的联系人的信息（姓名、学号任选其一）>\n");
-		scanf_s("%d", &input);
-
-		switch (input)
-		{
-		case NAME:
-			pos = SearchNameEntry(&pc);
-			break;
-		case ID:
-			pos = SearchIdEntry(&pc);
-			break;
-		case EXIT:
-			printf("取消修改\n");
-			break;
-		default:
-			printf("输入错误，请重新输入\n");
-			break;
-		}
-		if (pos != MAX)
-		{
-			ModifyContent(&pc, pos);
-			PrintCon(pc, pos);
-		}
-		if (input == 1 || input == 2)
-		{
-			input = 0;
-		}
-	} while (input);
+		ModifyContent(&pc, pos);
+		PrintCon(pc, pos);
+	}
 }
 
 void SortContact(pContact pc)
