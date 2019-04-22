@@ -1,0 +1,5 @@
+﻿cl : 命令行 warning D9025: 正在重写“/sdl”(用“/GS-”)
+  CommentConvert.c
+  test.c
+  正在生成代码...
+  CommentCovert.vcxproj -> E:\Data\code\CLCode\CLCode\CommentCovert\Debug\CommentConvert.exe
